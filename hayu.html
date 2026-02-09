@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tampilan Pesan</title>
 
-<!-- Library screenshot -->
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
@@ -41,6 +40,14 @@ body {
     letter-spacing: 2px;
 }
 
+.key {
+    margin-top: 15px;
+    color: #00ffcc;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
 button {
     padding: 12px 25px;
     font-size: 16px;
@@ -60,18 +67,35 @@ button:hover {
 
 <div class="box" id="capture">
     <div class="text">TUNJUKAN INI KE ADMIN</div>
+    <div class="key" id="key">KEY: ----</div>
 </div>
 
-<button onclick="screenshot()">Ambil Screenshot</button>
+<button onclick="generateAndScreenshot()">Ambil Screenshot</button>
 
 <script>
-function screenshot() {
-    html2canvas(document.body).then(canvas => {
-        let link = document.createElement("a");
-        link.download = "screenshot.png";
-        link.href = canvas.toDataURL();
-        link.click();
-    });
+function generateKey(length = 4) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let key = "";
+    for (let i = 0; i < length; i++) {
+        key += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return key;
+}
+
+function generateAndScreenshot() {
+    // buat key baru
+    const newKey = generateKey();
+    document.getElementById("key").textContent = "KEY: " + newKey;
+
+    // tunggu sedikit supaya key tampil dulu
+    setTimeout(() => {
+        html2canvas(document.body).then(canvas => {
+            let link = document.createElement("a");
+            link.download = "screenshot_" + newKey + ".png";
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+    }, 300);
 }
 </script>
 
