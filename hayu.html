@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tampilan Pesan</title>
+
+<!-- Library screenshot -->
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470") no-repeat center center/cover;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.box {
+    background: rgba(0, 0, 0, 0.45);
+    padding: 30px 50px;
+    border-radius: 15px;
+    backdrop-filter: blur(6px);
+    text-align: center;
+}
+
+.text {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background: #2ecc71;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #27ae60;
+}
+</style>
+</head>
+<body>
+
+<div class="box" id="capture">
+    <div class="text">TUNJUKAN INI KE ADMIN</div>
+</div>
+
+<button onclick="screenshot()">Ambil Screenshot</button>
+
+<script>
+function screenshot() {
+    html2canvas(document.body).then(canvas => {
+        let link = document.createElement("a");
+        link.download = "screenshot.png";
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+}
+</script>
+
+</body>
+</html>
